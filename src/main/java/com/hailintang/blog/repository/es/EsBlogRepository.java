@@ -1,0 +1,30 @@
+package com.hailintang.blog.repository.es;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
+
+import com.hailintang.blog.bean_es.EsBlog;
+/**
+ * esBlog的repository
+ * @author aaron
+ *
+ */
+public interface EsBlogRepository extends ElasticsearchRepository<EsBlog, String> {
+	/**
+	 * 模糊查询，去重
+	 * @param title
+	 * @param Summary
+	 * @param content
+	 * @param tags
+	 * @param pageable
+	 * @return
+	 */
+	Page<EsBlog> findDistinctEsBlogByTitleContainingOrSummaryContainingOrContentContainingOrTagsContaining(String title,String Summary,String content,String tags,Pageable pageable);
+	/**
+	 * 查询blog
+	 * @param blogId
+	 * @return
+	 */
+	EsBlog findByBlogId(Long blogId);
+}
