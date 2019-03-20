@@ -2,7 +2,11 @@ package com.hailintang.blog.service;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import com.hailintang.blog.bean.Blog;
 import com.hailintang.blog.bean.Catalog;
 import com.hailintang.blog.bean.User;
 import com.hailintang.blog.repository.CatalogRepository;
@@ -49,6 +53,16 @@ public class CatalogServiceImpl implements CatalogService{
 	@Override
 	public List<Catalog> listCatalogs(User user) {
 		return catalogRepository.findByUser(user);
+	}
+	/**
+	 * 根据名字查询分类
+	 */
+	@Override
+	public Page<Catalog> listCatalogsByName(String name,Pageable page) {
+		// TODO Auto-generated method stub
+		name = "%" + name + "%";
+		Page<Catalog> catalogs = catalogRepository.findByNameLike(name, page);
+		return catalogs;
 	}
 
 }

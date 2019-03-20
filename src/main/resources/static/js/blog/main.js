@@ -56,7 +56,6 @@ $(function() {
 		$.ajax({ 
 			 url: "/blog/edit/" + $(this).attr("blogId"), 
 			 success: function(data){
-				 alert(data);
 				 $("#blogFormContainer").html(data);
 		     },
 		     error : function() {

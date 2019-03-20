@@ -9,7 +9,7 @@ $(function() {
 	// 根据用户名、页面索引、页面大小获取用户列表
 	function getUersByName(pageIndex, pageSize) {
 		 $.ajax({ 
-			 url: "/blog", 
+			 url: "/catalog", 
 			 contentType : 'application/json',
 			 data:{
 				 "async":true, 
@@ -18,7 +18,7 @@ $(function() {
 				 "name":$("#searchName").val()
 			 },
 			 success: function(data){
-				 alert(data);
+				 
 				 $("#mainContainer").html(data);
 		     },
 		     error : function() {
@@ -38,25 +38,12 @@ $(function() {
 		getUersByName(0, _pageSize);
 	});
 	
-	// 获取添加用户的界面
-	$("#addBlog").click(function() {
-		$.ajax({ 
-			 url: "/users/add", 
-			 success: function(data){
-				 $("#blogFormContainer").html(data);
-		     },
-		     error : function(data) {
-		    	 toastr.error("error!");
-		     }
-		 });
-	});
-	
 	// 获取编辑用户的界面
-	$("#rightContainer").on("click",".blog-edit-blog", function () { 
+	$("#rightContainer").on("click",".blog-edit-catalog", function () { 
 		$.ajax({ 
-			 url: "/blog/edit/" + $(this).attr("blogId"), 
+			 url: "/catalog/edit/" + $(this).attr("catalogId"), 
 			 success: function(data){
-				 $("#blogFormContainer").html(data);
+				 $("#userFormContainer").html(data);
 		     },
 		     error : function() {
 		    	 toastr.error("error!");
@@ -67,11 +54,11 @@ $(function() {
 	// 提交变更后，清空表单
 	$("#submitEdit").click(function() {
 		$.ajax({ 
-			 url: "/blog", 
+			 url: "/catalog", 
 			 type: 'POST',
-			 data:$('#blogForm').serialize(),
+			 data:$('#catalogForm').serialize(),
 			 success: function(data){
-				 $('#blogForm')[0].reset();  
+				 $('#catalogForm')[0].reset();  
 				 
 				 if (data.success) {
 					 // 从新刷新主界面
@@ -80,33 +67,6 @@ $(function() {
 					 toastr.error(data.message);
 				 }
 
-		     },
-		     error : function() {
-		    	 toastr.error("error!");
-		     }
-		 });
-	});
-	
-	// 删除用户
-	$("#rightContainer").on("click",".blog-delete-blog", function () { 
-		// 获取 CSRF Token 
-		var csrfToken = $("meta[name='_csrf']").attr("content");
-		var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-		
-		
-		$.ajax({ 
-			 url: "/users/" + $(this).attr("blogId") , 
-			 type: 'DELETE', 
-			 beforeSend: function(request) {
-                 request.setRequestHeader(csrfHeader, csrfToken); // 添加  CSRF Token 
-             },
-			 success: function(data){
-				 if (data.success) {
-					 // 从新刷新主界面
-					 getUersByName(0, _pageSize);
-				 } else {
-					 toastr.error(data.message);
-				 }
 		     },
 		     error : function() {
 		    	 toastr.error("error!");

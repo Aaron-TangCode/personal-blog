@@ -11,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,28 +19,27 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.hailintang.blog.bean.Blog;
-import com.hailintang.blog.bean.User;
-import com.hailintang.blog.service.BlogService;
-import com.hailintang.blog.service.UserService;
+import com.hailintang.blog.bean.Catalog;
+import com.hailintang.blog.service.CatalogService;
 import com.hailintang.blog.util.ConstraintViolationExceptionHandler;
 import com.hailintang.blog.vo.Response;
 
-
 /**
- * 博客主页控制器
+ * 管理员控制器
  * @author aaron
  *
  */
 @RestController
-@RequestMapping("/blog")
+@RequestMapping("/catalog")
 @PreAuthorize("hasAuthority('ROLE_ADMIN')")//指定角色权限才能操作方法
-public class BlogController_Admin {
- 
+public class CatalogController_Admin {
+		
 	@Autowired
-	private BlogService blogService;	
+	private CatalogService catalogService;
+	
+
 	/**
-	 * 查看博客列表和搜索框功能
+	 * 查询所有分类
 	 * @return
 	 */
 	@GetMapping
@@ -52,45 +50,43 @@ public class BlogController_Admin {
 			Model model) {
 	 
 		Pageable pageable = new PageRequest(pageIndex, pageSize);
-		//name是在admins页面的博客管理搜索框输出
-		Page<Blog> page = blogService.listBlogsByNameLike(name, pageable);
-		List<Blog> list = page.getContent();	// 当前所在页面数据列表
+		
+		Page<Catalog> page = catalogService.listCatalogsByName(name,pageable);
+		List<Catalog> list = page.getContent();	// 当前所在页面数据列表
 		
 		model.addAttribute("page", page);
-		model.addAttribute("blogList", list);
-		return new ModelAndView(async==true?"blog/list :: #mainContainerRepleace":"blog/list", "blogModel", model);
+		model.addAttribute("catalogList", list);
+		return new ModelAndView(async==true?"catalog/list :: #mainContainerRepleace":"catalog/list", "catalogModel", model);
 	}
-
+	
 	/**
-	 * 修改博客信息
+	 * 修改分类信息
 	 */
 	@PostMapping
-	public ResponseEntity<Response> create(Blog blog) {
+	public ResponseEntity<Response> create(Catalog catalog) {
 		try {
-			System.out.println(blog);
-			Blog newBlog = blogService.getBlogById(blog.getId());
-			newBlog.setReadSize(blog.getReadSize());
-			newBlog.setVoteSize(blog.getVoteSize());
-			newBlog.setTitle(blog.getTitle());
-			newBlog.setSummary(blog.getSummary());
-			blogService.saveBlog(newBlog);
+			System.out.println(catalog);
+			Catalog newCatalog = catalogService.getCatalogById(catalog.getId());
+			newCatalog.setName(catalog.getName());
+			catalogService.saveCatalog(newCatalog);
 		
 		}  catch (ConstraintViolationException e)  {
 			return ResponseEntity.ok().body(new Response(false, ConstraintViolationExceptionHandler.getMessage(e)));
 		}
 		
-		return ResponseEntity.ok().body(new Response(true, "处理成功", blog));
+		return ResponseEntity.ok().body(new Response(true, "处理成功", catalog));
 	}
 
 	/**
-	 * 修改博客表单
+	 * 修改分类的表单
+	 * @param id
+	 * @param model
+	 * @return
 	 */
 	@GetMapping(value = "edit/{id}")
 	public ModelAndView modifyForm(@PathVariable("id") Long id, Model model) {
-		Blog blog = blogService.getBlogById(id);
-		model.addAttribute("blog", blog);
-		return new ModelAndView("blog/edit", "blogModel", model);
+		Catalog catalog = catalogService.getCatalogById(id);
+		model.addAttribute("catalog", catalog);
+		return new ModelAndView("catalog/edit", "catalogModel", model);
 	}
 }
-
-

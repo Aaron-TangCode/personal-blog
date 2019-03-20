@@ -2,6 +2,9 @@ package com.hailintang.blog.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.hailintang.blog.bean.Catalog;
 import com.hailintang.blog.bean.User;
 /**
@@ -36,4 +39,10 @@ public interface CatalogService {
 	 * @return
 	 */
 	List<Catalog> listCatalogs(User user);
+	/**
+	 * 根据分类名称查询
+	 * @param name
+	 * @return
+	 */
+	Page<Catalog> listCatalogsByName(String name,Pageable page);
 }

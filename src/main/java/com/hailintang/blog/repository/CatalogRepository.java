@@ -1,6 +1,8 @@
 package com.hailintang.blog.repository;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.hailintang.blog.bean.Catalog;
 import com.hailintang.blog.bean.User;
@@ -24,4 +26,10 @@ public interface CatalogRepository extends JpaRepository<Catalog, Long>{
 	 * @return
 	 */
 	List<Catalog> findByUserAndName(User user,String name);
+	/**
+	 * 根据分类名称查询
+	 * @param name
+	 * @return
+	 */
+	Page<Catalog> findByNameLike(String name,Pageable page);
 }

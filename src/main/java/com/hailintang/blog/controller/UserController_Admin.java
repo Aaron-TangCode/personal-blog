@@ -47,7 +47,7 @@ public class UserController_Admin {
 	private AuthorityService  authorityService;
 
 	/**
-	 * 查询所用用户
+	 * 查询所用用户,搜索框
 	 * @return
 	 */
 	@GetMapping

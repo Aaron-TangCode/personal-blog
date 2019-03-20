@@ -1,7 +1,5 @@
 <div class="card-header bg-dark font-white">
-
 	<div class="input-group col-md-7 col-xl-6">
-
 		<input type="text" class="form-control" id="searchName"
 			placeholder="输入用户名称进行搜索"> <span class="input-group-btn">
 			<button class="btn btn-secondary" type="button" id="searchNameBtn">
@@ -10,10 +8,8 @@
 		</span> <a class="btn btn-primary" data-toggle="modal"
 			data-target="#flipFlop" role="button" id="addUser"><i
 			class="fa fa-plus" aria-hidden="true"></i></a>
-
 	</div>
 </div>
-
 <div id="mainContainer" class="container">
 	<div id="mainContainerRepleace" class="row">
 		<table class="table table-striped">
@@ -25,11 +21,9 @@
 					<th data-field="email">邮箱</th>
 					<th data-field="authorities">角色</th>
 					<th data-field="operation">操作</th>
-
 				</tr>
 			</thead>
 			<tbody>
-
 				<tr th:each="user : ${userModel.userList}">
 					<td th:text="${user.id}">1</td>
 					<td th:text="${user.username}">1</td>
@@ -49,12 +43,9 @@
 						</div>
 					</td>
 				</tr>
-
 			</tbody>
-
 		</table>
 		<div th:replace="~{fragments/page :: page}">...</div>
-
 	</div>
 </div>
 
@@ -69,8 +60,8 @@
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-
 			</div>
+			
 			<div class="modal-body" id="userFormContainer"></div>
 			<div class="modal-footer">
 				<button class="btn btn-primary" data-dismiss="modal" id="submitEdit">提交</button>
