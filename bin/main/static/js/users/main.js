@@ -53,8 +53,14 @@ $(function() {
 	
 	// 获取编辑用户的界面
 	$("#rightContainer").on("click",".blog-edit-user", function () { 
+		// 获取 CSRF Token 
+		var csrfToken = $("meta[name='_csrf']").attr("content");
+		var csrfHeader = $("meta[name='_csrf_header']").attr("content");
 		$.ajax({ 
 			 url: "/users/edit/" + $(this).attr("userId"), 
+			 beforeSend: function(request) {
+                 request.setRequestHeader(csrfHeader, csrfToken); // 添加  CSRF Token 
+             },
 			 success: function(data){
 				 $("#userFormContainer").html(data);
 		     },
@@ -66,10 +72,16 @@ $(function() {
 	
 	// 提交变更后，清空表单
 	$("#submitEdit").click(function() {
+		// 获取 CSRF Token 
+		var csrfToken = $("meta[name='_csrf']").attr("content");
+		var csrfHeader = $("meta[name='_csrf_header']").attr("content");
 		$.ajax({ 
 			 url: "/users", 
 			 type: 'POST',
 			 data:$('#userForm').serialize(),
+			 beforeSend: function(request) {
+                 request.setRequestHeader(csrfHeader, csrfToken); // 添加  CSRF Token 
+             },
 			 success: function(data){
 				 $('#userForm')[0].reset();  
 				 

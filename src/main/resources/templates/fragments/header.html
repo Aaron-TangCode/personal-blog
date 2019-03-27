@@ -14,37 +14,36 @@
 	<link rel="shortcut icon" href="images/logo.jpeg">
 	
     <!-- Tether core CSS -->
-    <link href="../../css/tether.min.css" th:href="@{/css/tether.min.css}" rel="stylesheet">
+    <link th:href="@{/css/tether.min.css}" rel="stylesheet">
 
     <!-- Bootstrap CSS -->
-    <link href="../../css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
 
     <!-- Font-Awesome CSS -->
-    <link href="../../css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet">
+    <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet">
 
     <!-- NProgress CSS -->
-    <link href="../../css/nprogress.css" th:href="@{/css/nprogress.css}" rel="stylesheet">
+    <link th:href="@{/css/nprogress.css}" rel="stylesheet">
 
     <!-- thinker-md CSS -->
-    <link href="../../css/thinker-md.vendor.css" th:href="@{/css/thinker-md.vendor.css}" rel="stylesheet">
+    <link th:href="@{/css/thinker-md.vendor.css}" rel="stylesheet">
 
     <!-- bootstrap tags CSS -->
-    <link href="../../css/bootstrap-tagsinput.css" th:href="@{/css/jquery.tagsinput.min.css}" rel="stylesheet">
+    <link th:href="@{/css/jquery.tagsinput.min.css}" rel="stylesheet">
     
     <!-- bootstrap chosen CSS -->
-    <link href="../../css/component-chosen.min.css" th:href="@{/css/component-chosen.min.css}" rel="stylesheet">
+    <link th:href="@{/css/component-chosen.min.css}" rel="stylesheet">
 
     <!-- toastr CSS -->
-    <link href="../../css/toastr.min.css" th:href="@{/css/toastr.min.css}" rel="stylesheet">
+    <link th:href="@{/css/toastr.min.css}" rel="stylesheet">
     
     <!-- jQuery image cropping plugin CSS -->
-    <link href="../../css/cropbox.css" th:href="@{/css/cropbox.css}" rel="stylesheet">
+    <link th:href="@{/css/cropbox.css}" rel="stylesheet">
     
     <!-- Custom styles -->
-    <link href="../../css/style.css" th:href="@{/css/style.css}" rel="stylesheet">
-    <link href="../../css/thymeleaf-bootstrap-paginator.css" th:href="@{/css/thymeleaf-bootstrap-paginator.css}"
-          rel="stylesheet">
-    <link href="../../css/blog.css" th:href="@{/css/blog.css}" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link th:href="@{/css/thymeleaf-bootstrap-paginator.css}" rel="stylesheet">
+    <link th:href="@{/css/blog.css}" rel="stylesheet">
 </head>
 <body>
 <nav class="navbar navbar-inverse bg-inverse navbar-toggleable-md linear-gradient">
@@ -68,7 +67,7 @@
                     <a href="javascript:void(0)" class="btn btn-outline-secondary my-2 my-sm-0" id="indexsearch"><i class="fa fa-search"></i></a>
                 </form>
             </ul>
-            <div sec:authorize="isAuthenticated()"  class="row" >
+            <div sec:authorize="isAuthenticated()" class="row">
 				<div class="dropdown">
 					<a class=" dropdown-toggle" th:href="@{'/u/' + ${#authentication.name}}" data-toggle="dropdown"><span sec:authentication="name"></span></a>
 					<div class="dropdown-menu" >
@@ -82,11 +81,15 @@
 				<form action="/logout" th:action="@{/logout}" method="post">
 					<input class="btn btn-default btn-md" type="submit" value="退出">
 				</form>
+				<!-- 从主页到管理台 -->
+				<div th:if="${#authentication.name} == admin">
+ 					<a th:href="@{/admins}"><button type="button" class="btn btn-default btn-md">管理台</button></a>
+ 				</div>
+ 				
             </div>
             <div sec:authorize="isAnonymous()">
-    				<a href="/login"><button type="button" class="btn btn-default btn-md">登录</button></a>
-    				<a href="/register"><button type="button" class="btn btn-default btn-md">注册</button></a>
-    			
+    				<a th:href="@{/login}"><button type="button" class="btn btn-default btn-md">登录</button></a>
+    				<a th:href="@{/register}"><button type="button" class="btn btn-default btn-md">注册</button></a>
     		</div>
         </div>
 
