@@ -11,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,9 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hailintang.blog.bean.Blog;
-import com.hailintang.blog.bean.User;
 import com.hailintang.blog.service.BlogService;
-import com.hailintang.blog.service.UserService;
 import com.hailintang.blog.util.ConstraintViolationExceptionHandler;
 import com.hailintang.blog.vo.Response;
 

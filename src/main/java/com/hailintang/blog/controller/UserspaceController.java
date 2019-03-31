@@ -65,9 +65,14 @@ public class UserspaceController {
 		model.addAttribute("user", user);
 		return "redirect:/u/" + username + "/blogs";
 	}
- 
+	/**
+	 * 获取个人设置页面
+	 * @param username
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/{username}/profile")
-	@PreAuthorize("authentication.name.equals(#username)") 
+	@PreAuthorize("authentication.name.equals(#username)") //判断当前用户是否为授权用户 
 	public ModelAndView profile(@PathVariable("username") String username, Model model) {
 		User  user = (User)userDetailsService.loadUserByUsername(username);
 		model.addAttribute("user", user);
@@ -75,7 +80,7 @@ public class UserspaceController {
 	}
  
 	/**
-	 * 保存个人设置
+	 * 保存个人设置页面
 	 * @param user
 	 * @param result
 	 * @param redirect
@@ -117,7 +122,7 @@ public class UserspaceController {
 	
 	
 	/**
-	 * 保存用户头像
+	 * 修改用户头像
 	 * @param username
 	 * @param user
 	 * @return
