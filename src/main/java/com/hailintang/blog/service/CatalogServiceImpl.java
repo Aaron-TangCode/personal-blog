@@ -6,7 +6,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.hailintang.blog.bean.Blog;
 import com.hailintang.blog.bean.Catalog;
 import com.hailintang.blog.bean.User;
 import com.hailintang.blog.repository.CatalogRepository;

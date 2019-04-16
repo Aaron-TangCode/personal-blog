@@ -1,5 +1,8 @@
 package com.hailintang.blog.dto;
 //接收前端的传来的数据
+
+import org.springframework.beans.factory.support.AbstractBeanFactory;
+
 public class BlogDTO {
 	private Long id;
 	private Integer readSize;
